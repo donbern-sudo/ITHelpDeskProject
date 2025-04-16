@@ -10,7 +10,27 @@ app.secret_key = 'supersecurekey'
 # ----------------------------
 # ROUTES (PAGES) BEGIN HERE
 # ----------------------------
+sql_statement = """CREATE TABLE IF NOT EXISTS tickets (
+            id INTEGER PRIMARY KEY, 
+            name text NOT NULL, 
+            email NOT NULL, 
+            issue NOT NULL
+        );"""
 
+try:
+    with sqlite3.connect('tickets.db') as conn:
+        # create a cursor
+        cursor = conn.cursor()
+
+        # execute statements
+        cursor.execute(sql_statement)
+
+        # commit the changes
+        conn.commit()
+
+        print("Ticket table created successfully.")
+except sqlite3.OperationalError as e:
+    print("Failed to create ticket table:", e)
 # Home page — Ticket submission form
 @app.route('/')
 def home():
