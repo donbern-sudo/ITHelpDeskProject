@@ -35,7 +35,6 @@ except sqlite3.OperationalError as e:
 @app.route('/')
 def home():
     return render_template('home.html')
-
 # Handle form submission from the home page
 @app.route('/submit_ticket', methods=['POST'])
 def submit_ticket():
@@ -94,4 +93,5 @@ def admin_logout():
 
 
 if __name__ == "__main__":
+    # Only run this if you're testing locally
     app.run(debug=True)
